@@ -1,0 +1,50 @@
+--- a/standalone/configuration/standalone.xml
++++ b/standalone/configuration/standalone.xml
+@@ -52,22 +55,29 @@
+             </http-interface>
+         </management-interfaces>
+     </management>
++
+     <profile>
+         <subsystem xmlns="urn:jboss:domain:logging:1.2">
+-            <console-handler name="CONSOLE">
++            <custom-handler name="CONSOLE2" class="com.redhat.gss.logging.SelectiveFormattingConsoleHandler" module="com.redhat.gss.logging">
+                 <level name="INFO"/>
+                 <formatter>
+                     <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
+                 </formatter>
+-            </console-handler>
+-            <periodic-rotating-file-handler name="FILE" autoflush="true">
++                <properties>
++                    <property name="unformattedLoggers" value="stdout"/>
++                </properties>
++            </custom-handler>
++            <custom-handler name="FILE2" class="com.redhat.gss.logging.SelectiveFormattingPeriodicSizeRotatingFileHandler" module="com.redhat.gss.logging">
+                 <formatter>
+                     <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
+                 </formatter>
+-                <file relative-to="jboss.server.log.dir" path="server.log"/>
+-                <suffix value=".yyyy-MM-dd"/>
+-                <append value="true"/>
+-            </periodic-rotating-file-handler>
++                <properties>
++                    <property name="unformattedLoggers" value="stdout"/>
++                    <property name="file" value="${jboss.server.log.dir}/server.log"/>
++                    <property name="suffix" value=".yyyy-MM-dd"/>
++                    <property name="append" value="true"/>
++                </properties>
++            </custom-handler>
+             <logger category="com.arjuna">
+                 <level name="WARN"/>
+             </logger>
+@@ -89,8 +99,8 @@
+             <root-logger>
+                 <level name="INFO"/>
+                 <handlers>
+-                    <handler name="CONSOLE"/>
+-                    <handler name="FILE"/>
++                    <handler name="CONSOLE2"/>
++                    <handler name="FILE2"/>
+                 </handlers>
+             </root-logger>
+         </subsystem>
