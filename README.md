@@ -2,11 +2,10 @@ custom-format-handlers
 ======================
 
 Custom handlers for JBoss LogManager.  If you want to choose certain loggers to
-forego formatting, then these custom handlers are the way to go.  You can
-specify a set of logger names that you don't want to have formatted.  Perhaps
-you have a logging framework in your application that alreasy formats your log
+forego formatting, then these custom handlers are the way to go.  Perhaps you
+have a logging framework in your application that already formats your log
 messages and you just don't want JBoss messing with that formatting any more.
-Whatever your reason, here's and example of how to install these two handlers:
+Whatever your reason, here's an example of how to install these two handlers:
 
 ```
 <custom-handler name="CONSOLE2" class="com.redhat.gss.logging.SelectiveFormattingConsoleHandler" module="com.redhat.gss.logging">
@@ -32,7 +31,7 @@ Whatever your reason, here's and example of how to install these two handlers:
 ```
 
 There's also a diff you can apply, included in this project.  To install the
-actual code, you need to create the follow folder structure in EAP 6.1:
+actual code, you need to create the following folder structure in EAP 6.1:
 
 ```
 $JBOSS_HOME/system/layers/base/com/redhat/gss/logging/main
